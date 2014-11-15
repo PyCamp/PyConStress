@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LevelController.boo">
+    <Files>
+      <File FileName="Assets/Scripts/AttendeeController.boo" Line="19" Column="38" />
+      <File FileName="Assets/Scripts/LevelController.boo" Line="95" Column="32" />
+      <File FileName="Assets/Scripts/GoalScript.boo" Line="6" Column="1" />
+      <File FileName="Assets/Scripts/FisaController.boo" Line="86" Column="30" />
+      <File FileName="../../Code/GameDevelopment/thepathbacktolife/Assets/Scripts/Controller/EdmundController.boo" Line="185" Column="47" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
