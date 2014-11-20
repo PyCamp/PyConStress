@@ -1,0 +1,151 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>PyCon Stress - The Game!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+    <!-- Fonts from Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+  <script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
+  <script type="text/javascript">
+  <!--
+  var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
+  if (document.location.protocol == 'https:')
+    unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
+  document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
+  -->
+  </script>
+  <script type="text/javascript">
+  <!--
+    var config = {
+      width: 960,
+      height: 600,
+      params: { enableDebugging:"0" }
+
+    };
+    var u = new UnityObject2(config);
+
+    jQuery(function() {
+
+      var $missingScreen = jQuery("#unityPlayer").find(".missing");
+      var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+      $missingScreen.hide();
+      $brokenScreen.hide();
+
+      u.observeProgress(function (progress) {
+        switch(progress.pluginStatus) {
+          case "broken":
+            $brokenScreen.find("a").click(function (e) {
+              e.stopPropagation();
+              e.preventDefault();
+              u.installPlugin();
+              return false;
+            });
+            $brokenScreen.show();
+          break;
+          case "missing":
+            $missingScreen.find("a").click(function (e) {
+              e.stopPropagation();
+              e.preventDefault();
+              u.installPlugin();
+              return false;
+            });
+            $missingScreen.show();
+          break;
+          case "installed":
+            $missingScreen.remove();
+          break;
+          case "first":
+          break;
+        }
+      });
+      u.initPlugin(jQuery("#unityPlayer")[0], "{% static 'pyconStress.unity3d' %}");
+    });
+  -->
+  </script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'home' %}"><b>PyCon Stress</b></a>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+    <div class="row mt centered">
+      <div class="col-lg-6 col-lg-offset-3">
+        <h1>Scores:</h1>
+        <h3>Are you the best at PyCon Stress?? No?! SHAME ON YOU!!</h3>
+      </div>
+    </div><!-- /row -->
+    <div class="col-lg-8 col-lg-offset-2">
+      <table style="width:100%">
+        <tr>
+          <th>Position</th>
+          <th>Player</th>
+          <th>Score</th>
+        </tr>
+        {% for score in scores %}
+          <tr>
+            <td width="15%">{{forloop.counter}}</td>
+            <td width="70%">{{score.player}}</td>
+            <td width="15%">{{score.score}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <br>
+    </div>
+  </div><!-- /container -->
+
+  <div class="container">
+    <hr>
+    <p class="centered">Created by <a href="https://twitter.com/py_litox">Litox</a>,
+    <a href="https://twitter.com/srmanuq">Manuq</a>, <a href="https://twitter.com/hugoruscitti">Hugo</a>,
+    <a href="https://twitter.com/diegosarmentero">Gatox</a></p>
+  </div><!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-4650617-22', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
