@@ -1,17 +1,17 @@
 ﻿import UnityEngine
 
-import LevelController
-
 class AttendeeController (MonoBehaviour): 
 	
 	public direction as Vector2
-	
 	public goal as string
 	
-	anim as Animator
+	private gameController as GameController
+	private anim as Animator
 
 	def Start ():
 		anim = GetComponent[of Animator]()
+		gameControllerObject as GameObject = GameObject.FindWithTag('GameController')
+		gameController = gameControllerObject.GetComponent[of GameController]()
 		RandomizeDirection()
 		
 	def RandomizeDirection():
@@ -20,10 +20,12 @@ class AttendeeController (MonoBehaviour):
 		direction = Quaternion.AngleAxis(rotate, Vector3.forward) * direction
 	
 	def Update():
+		if not GameController.isPlaying():
+			return
 		rigidbody2D.velocity = direction
 		angle = Vector2.Angle(Vector2.right, direction)
 		if direction.y < 0:
-				angle = 360 - angle
+			angle = 360 - angle
 		anim.SetInteger("BotAngle", angle)
 		
 	def OnCollisionStay2D(collision as Collision2D) as void:
@@ -31,11 +33,11 @@ class AttendeeController (MonoBehaviour):
 			angle = (Random.value * 45) + 45
 			direction = Quaternion.AngleAxis(angle, Vector3.forward) * direction
 			
-	def OnCollisionEnter2D(collision as Collision2D) as void:
-		if collision.gameObject.layer == LayerMask.NameToLayer("Goals"):
-			goalScript = collision.gameObject.GetComponent[of GoalScript]()
+	def OnTriggerEnter2D(other as Collider2D) as void:
+		if other.gameObject.layer == LayerMask.NameToLayer("Goals"):
+			goalScript = other.gameObject.GetComponent[of GoalScript]()
 			if goal == goalScript.goalName:
-				LevelController.counterValue += 1
+				gameController.AddScore()
 				Destroy(gameObject)
 			else:
 				angle = (Random.value * 45) + 45

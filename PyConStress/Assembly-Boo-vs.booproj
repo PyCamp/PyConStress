@@ -48,8 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AttendeeController.boo" />
      <Compile Include="Assets\Scripts\FisaController.boo" />
+     <Compile Include="Assets\Scripts\GameController.boo" />
      <Compile Include="Assets\Scripts\GoalScript.boo" />
-     <Compile Include="Assets\Scripts\LevelController.boo" />
+     <Compile Include="Assets\Scripts\MenuScript.boo" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
