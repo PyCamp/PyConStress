@@ -41,7 +41,7 @@ class FisaController (MonoBehaviour):
 		move = Input.GetAxis("Vertical")
 		rotate = Input.GetAxis("Horizontal")
 		if rotate:
-			direction = Quaternion.AngleAxis(rotate * -5.0, Vector3.forward) * direction
+			direction = Quaternion.AngleAxis(rotate * -8.0, Vector3.forward) * direction
 			angle = Vector2.Angle(Vector2.right, direction)
 			if direction.y < 0:
 				angle = 360 - angle
@@ -52,10 +52,10 @@ class FisaController (MonoBehaviour):
 				
 		if move > 0:
 			rigidbody2D.velocity = direction
-			anim.speed = 1
+			anim.speed = 3
 		elif move < 0:
-			rigidbody2D.velocity = -direction
-			anim.speed = 1
+			rigidbody2D.velocity = -direction / 2
+			anim.speed = 2
 		else:
 			rigidbody2D.velocity = Vector2(0, 0)
 			anim.speed = 0
@@ -64,7 +64,7 @@ class FisaController (MonoBehaviour):
 			index as int = Random.value
 			sound.PlayOneShot(soundBoard[index], 1)
 			controller = catched.GetComponent[of AttendeeController]()
-			controller.direction = direction / 2
+			controller.direction = direction * 1.8
 			catched = null
 			Invoke("BotReleased", 0.5f)
 		elif catched:
